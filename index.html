@@ -1,241 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Quant Learning Roadmap — A Path Through the Books</title>
-    <meta name="description" content="An opinionated, ordered roadmap for learning quantitative finance — from mathematical foundations to stochastic calculus, derivatives pricing, and desk specialization. By Martin Tonikyan, PhD.">
-    <link rel="canonical" href="https://mt3552.github.io/quants-bookshelf/roadmap.html">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quant's Bookshelf — Curated Quantitative Finance Reading List</title>
+    <meta name="description" content="A curated, filterable reading list of quantitative finance, math, statistics, ML, and programming books, by Martin Tonikyan, PhD.">
+    <link rel="canonical" href="https://martintg1.github.io/quants-bookshelf/quants-bookshelf-cards">
 
-    <!-- Open Graph / LinkedIn -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mt3552.github.io/quants-bookshelf/roadmap.html">
-    <meta property="og:title" content="The Quant Learning Roadmap — A Path Through the Books">
-    <meta property="og:description" content="An opinionated, ordered path for learning quantitative finance: foundations → probability → stochastic calculus → pricing → specialization.">
-    <meta property="og:image" content="https://mt3552.github.io/quants-bookshelf/roadmap-preview.png">
-    <meta property="og:image:alt" content="The Quant Learning Roadmap">
+        <meta property="og:type" content="website">
+    <meta property="og:url" content="https://martintg1.github.io/quants-bookshelf/quants-bookshelf-cards">
+    <meta property="og:title" content="Quant's Bookshelf — Curated Quantitative Finance Reading List">
+    <meta property="og:description" content="A curated, filterable reading list of quantitative finance, math, statistics, ML, and programming books.">
+    <meta property="og:image" content="https://martintg1.github.io/quants-bookshelf/preview.png">
+    <meta property="og:image:alt" content="Quant's Bookshelf — a curated quant finance reading list">
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The Quant Learning Roadmap — A Path Through the Books">
-    <meta name="twitter:description" content="An opinionated, ordered path for learning quantitative finance: foundations → probability → stochastic calculus → pricing → specialization.">
-    <meta name="twitter:image" content="https://mt3552.github.io/quants-bookshelf/roadmap-preview.png">
+        <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Quant's Bookshelf — Curated Quantitative Finance Reading List">
+    <meta name="twitter:description" content="A curated, filterable reading list of quantitative finance, math, statistics, ML, and programming books.">
+    <meta name="twitter:image" content="https://martintg1.github.io/quants-bookshelf/preview.png">
 
-    <!-- Favicon: compass emoji as inline SVG -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%AD%3C/text%3E%3C/svg%3E">
+        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        /* Vertical timeline connector running through the stage number badges */
-        .stage { position: relative; }
-        .stage::before {
-            content: '';
-            position: absolute;
-            left: 1.25rem;            /* center of the 2.5rem badge */
-            top: 2.5rem;
-            bottom: -2rem;
-            width: 2px;
-            background: linear-gradient(to bottom, #374151, #1f2937);
-        }
-        .stage:last-child::before { display: none; }
-        .book-link { transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.12s ease; }
-        .book-link:hover { background-color: #374151; border-color: #3B82F6; transform: translateX(2px); }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Hide scrollbar for the tag checkbox dropdown */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Book card cover: consistent aspect box so the grid stays tidy regardless of cover size */
+        .cover-box {
+            aspect-ratio: 2 / 3;
+            background: #374151; /* gray-700 */
+        }
+        .cover-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .book-card {
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+        }
+        .book-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.6);
+            background-color: #374151; /* gray-700 */
+        }
+        .book-card:focus-visible {
+            outline: 2px solid #3B82F6; /* blue-500 */
+            outline-offset: 2px;
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-gray-300">
 
-    <div class="container mx-auto px-4 py-10 max-w-4xl">
-        <header class="text-center mb-10">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-white">The Quant Learning Roadmap</h1>
-            <p class="text-md text-gray-400 mt-2">by <a href="https://www.linkedin.com/in/martintonikyan/" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Martin Tonikyan, PhD</a></p>
-            <p class="text-sm text-gray-500 mt-4 max-w-2xl mx-auto leading-relaxed">
-                An opinionated path from first principles to the trading desk. Work top to bottom — each stage assumes the one above it. The <span class="text-gray-300 font-medium">Quant Toolkit</span> runs in parallel the whole way through. Every book links out, and you can browse the full collection on the
-                <a href="https://mt3552.github.io/quants-bookshelf/" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Quant's Bookshelf</a>.
-            </p>
-        </header>
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-white">Quant's Bookshelf</h1>
+            <p class="text-md text-gray-400 mt-1">by <a href="https://www.linkedin.com/in/martintonikyan/" target="_blank" rel="noopener" class="text-blue-400 hover:underline">Martin Tonikyan, PhD</a></p>
+            <p class="text-sm text-gray-500 mt-3 max-w-2xl mx-auto">A curated reading list for quantitative finance — spanning finance, mathematics, statistics &amp; ML, programming, and career. Search, filter by tag, and sort. Tap any book to view it.</p>
+        </header>
 
-        <div id="roadmap" class="flex flex-col gap-8"></div>
+        <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center mb-6 gap-4">
+                        <input type="text" id="searchInput" placeholder="Search by title or author..." class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full sm:w-auto sm:flex-1 sm:max-w-xs focus:outline-none focus:ring-2 focus:ring-blue-500">
 
-        <footer class="mt-12 text-center text-xs text-gray-500 max-w-2xl mx-auto space-y-2">
-            <p><a href="https://mt3552.github.io/quants-bookshelf/" target="_blank" rel="noopener" class="text-blue-400 hover:underline">← Browse the full Quant's Bookshelf</a></p>
-            <p>As an Amazon Associate I earn from qualifying purchases. Book links are Amazon affiliate links; clicking them does not change the price you pay.</p>
-        </footer>
-    </div>
+                        <select id="categoryFilter" class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="all">All Categories</option>
+            </select>
 
-    <script>
-        const YOUR_AMAZON_ASSOCIATE_TAG = 'martintphd-20';
-
-        // Each track has a Tailwind border color so specializations are visually distinct.
-        const roadmap = [
-            {
-                title: "Mathematical Foundations",
-                blurb: "The bedrock. Linear algebra, analysis, and a first pass at probability — everything downstream leans on these.",
-                color: "border-sky-500",
-                tracks: [
-                    { name: "Linear Algebra", books: [
-                        { title: "Introduction to Linear Algebra", author: "Gilbert Strang", asin: "0980232775" },
-                        { title: "Linear Algebra Done Right", author: "Sheldon Axler", asin: "3319110799" },
-                    ]},
-                    { name: "Real Analysis", books: [
-                        { title: "Understanding Analysis", author: "Stephen Abbott", asin: "1493927116" },
-                        { title: "Principles of Mathematical Analysis", author: "Walter Rudin", asin: "007054235X" },
-                    ]},
-                    { name: "Probability (first pass)", books: [
-                        { title: "Introduction to Probability", author: "Blitzstein & Hwang", asin: "1138369918" },
-                        { title: "Introduction to Probability", author: "Tsitsiklis & Bertsekas", asin: "188652940X" },
-                    ]},
-                ],
-            },
-            {
-                title: "Probability, Statistics & Stochastic Processes",
-                blurb: "Measure-theoretic probability and the statistics you need before stochastic calculus makes sense.",
-                color: "border-indigo-500",
-                tracks: [
-                    { name: "Rigorous Probability", books: [
-                        { title: "Probability with Martingales", author: "David Williams", asin: "0521406056" },
-                        { title: "An Introduction to Probability Theory and Its Applications", author: "William Feller", asin: "0471257087" },
-                        { title: "Probability and Random Processes", author: "Grimmett & Stirzaker", asin: "0198572220" },
-                    ]},
-                    { name: "Statistical Inference", books: [
-                        { title: "Statistical Inference", author: "Casella & Berger", asin: "0534243126" },
-                    ]},
-                ],
-            },
-            {
-                title: "Stochastic Calculus",
-                blurb: "The mathematical engine of continuous-time pricing. Start with Shreve, then go deeper.",
-                color: "border-violet-500",
-                tracks: [
-                    { name: "Build-up", books: [
-                        { title: "Stochastic Calculus for Finance I", author: "Steven E. Shreve", asin: "0387249680" },
-                        { title: "Stochastic Calculus for Finance II", author: "Steven E. Shreve", asin: "0387401016" },
-                        { title: "Arbitrage Theory in Continuous Time", author: "Tomas Björk", asin: "019957474X" },
-                    ]},
-                    { name: "Deeper", books: [
-                        { title: "Introduction to Stochastic Calculus with Applications", author: "Fima C. Klebaner", asin: "1848168322" },
-                        { title: "Brownian Motion and Stochastic Calculus", author: "Karatzas & Shreve", asin: "0387976558" },
-                    ]},
-                ],
-            },
-            {
-                title: "Core Derivatives & Pricing",
-                blurb: "Where the math meets the market. The canonical texts every quant has on the shelf.",
-                color: "border-emerald-500",
-                tracks: [
-                    { name: "Foundations", books: [
-                        { title: "Options, Futures, and Other Derivatives", author: "John Hull", asin: "013447208X" },
-                        { title: "Paul Wilmott Introduces Quantitative Finance", author: "Paul Wilmott", asin: "0470319585" },
-                        { title: "The Concepts and Practice of Mathematical Finance", author: "Mark Joshi", asin: "0521514088" },
-                        { title: "Financial Calculus", author: "Baxter & Rennie", asin: "0521552893" },
-                    ]},
-                    { name: "Options & Volatility (intro)", books: [
-                        { title: "Option Volatility and Pricing", author: "Sheldon Natenberg", asin: "0071818774" },
-                    ]},
-                ],
-            },
-            {
-                title: "Specialization — Pick Your Desk",
-                blurb: "Go deep in one or two areas. These are the standard references by asset class.",
-                color: "border-amber-500",
-                tracks: [
-                    { name: "Volatility", books: [
-                        { title: "Stochastic Volatility Modelling", author: "Lorenzo Bergomi", asin: "1482244063" },
-                        { title: "Dynamic Hedging", author: "Nassim Nicholas Taleb", asin: "0471152803" },
-                        { title: "Interest-Rate Option Models", author: "Riccardo Rebonato", asin: "0471979589" },
-                    ]},
-                    { name: "Interest Rates", books: [
-                        { title: "Interest Rate Modelling (Vols 1-3)", author: "Andersen & Piterbarg", asin: "0984422102" },
-                        { title: "Interest Rate Models - Theory and Practice", author: "Brigo & Mercurio", asin: "3540221492" },
-                        { title: "Pricing and Trading Interest Rate Derivatives", author: "J. H. M. Darbyshire", asin: "0995455546" },
-                    ]},
-                    { name: "FX & Commodities", books: [
-                        { title: "FX Options and Smile Risk", author: "Antonio Castagna", asin: "0470754192" },
-                        { title: "Foreign Exchange Option Pricing", author: "Iain J. Clark", asin: "0470683686" },
-                        { title: "Commodity Option Pricing", author: "Iain J. Clark", asin: "1119944511" },
-                    ]},
-                    { name: "Credit & Fixed Income", books: [
-                        { title: "Modelling Single- and Multi-name Credit Derivatives", author: "Dominic O'Kane", asin: "0470519282" },
-                        { title: "The xVA Challenge", author: "Jon Gregory", asin: "1119508975" },
-                        { title: "The Handbook of Fixed Income Securities", author: "Frank J. Fabozzi", asin: "1260473899" },
-                    ]},
-                ],
-            },
-            {
-                title: "The Quant Toolkit (run in parallel)",
-                blurb: "Don't wait until the end — build these skills alongside everything above.",
-                color: "border-rose-500",
-                tracks: [
-                    { name: "Programming", books: [
-                        { title: "C++ Primer", author: "Lippman, Lajoie, Moo", asin: "0321714113" },
-                        { title: "Effective C++", author: "Scott Meyers", asin: "0321334876" },
-                        { title: "C++ Design Patterns and Derivatives Pricing", author: "Mark S. Joshi", asin: "0521721628" },
-                        { title: "Monte Carlo Methods in Financial Engineering", author: "Paul Glasserman", asin: "0387004513" },
-                    ]},
-                    { name: "Statistics & Machine Learning", books: [
-                        { title: "The Elements of Statistical Learning", author: "Hastie, Tibshirani & Friedman", asin: "0387848576" },
-                        { title: "Advances in Financial Machine Learning", author: "Marcos López de Prado", asin: "1119482089" },
-                        { title: "Mathematics for Machine Learning", author: "Deisenroth, Faisal, Ong", asin: "110845514X" },
-                    ]},
-                    { name: "Portfolio & Trading", books: [
-                        { title: "Advanced Portfolio Management", author: "Giuseppe A. Paleologo", asin: "1119789796" },
-                        { title: "Active Portfolio Management", author: "Grinold & Kahn", asin: "0070248826" },
-                        { title: "Inside the Black Box", author: "Rishi K. Narang", asin: "1119931894" },
-                    ]},
-                ],
-            },
-            {
-                title: "Career & Context",
-                blurb: "Land the seat, and understand the world you're stepping into.",
-                color: "border-gray-500",
-                tracks: [
-                    { name: "Interview Prep", books: [
-                        { title: "Heard on the Street", author: "Timothy Falcon Crack", asin: "1991155484" },
-                        { title: "Quant Job Interview Questions and Answers", author: "Joshi, Denson, Downes", asin: "0987122827" },
-                        { title: "Quantitative Trading Interview Guide", author: "Canary Wharfian", url: "https://www.canarywharfian.co.uk/guides/quantitative-trading-interview-guide" },
-                    ]},
-                    { name: "The Industry", books: [
-                        { title: "My Life as a Quant", author: "Emanuel Derman", asin: "0471394203" },
-                        { title: "The Man Who Solved the Market", author: "Gregory Zuckerman", asin: "073521798X" },
-                        { title: "The Quants", author: "Scott Patterson", asin: "0307453375" },
-                    ]},
-                ],
-            },
-        ];
-
-        const escapeHtml = (s) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-        const bookUrl = (book) => book.url
-            ? book.url
-            : `https://www.amazon.com/dp/${book.asin}/?tag=${YOUR_AMAZON_ASSOCIATE_TAG}`;
-
-        const bookLink = (book) => `
-            <a href="${bookUrl(book)}" target="_blank" rel="noopener sponsored"
-               class="book-link block px-3 py-2 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
-                <span class="block text-sm font-medium text-white leading-snug">${escapeHtml(book.title)}</span>
-                <span class="block text-xs text-gray-400">${escapeHtml(book.author)}</span>
-            </a>`;
-
-        const trackBlock = (track, color) => `
-            <div class="pl-3 border-l-2 ${color}">
-                <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">${escapeHtml(track.name)}</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    ${track.books.map(bookLink).join('')}
-                </div>
-            </div>`;
-
-        const stageBlock = (stage, i) => `
-            <section class="stage pl-14">
-                <div class="absolute left-0 top-0 flex items-center justify-center w-10 h-10 rounded-full bg-gray-800 border-2 ${stage.color} text-white font-bold">${i + 1}</div>
-                <h2 class="text-xl font-bold text-white leading-tight">${escapeHtml(stage.title)}</h2>
-                <p class="text-sm text-gray-500 mt-1 mb-4">${escapeHtml(stage.blurb)}</p>
-                <div class="flex flex-col gap-4">
-                    ${stage.tracks.map(t => trackBlock(t, stage.color)).join('')}
-                </div>
-            </section>`;
-
-        document.getElementById('roadmap').innerHTML = roadmap.map(stageBlock).join('');
-    </script>
-
-</body>
-</html>
+                        <select id="difficultyFilter" class="bg-gray-800 border border-gray-7
